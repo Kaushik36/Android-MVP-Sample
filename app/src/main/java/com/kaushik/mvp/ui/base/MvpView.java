@@ -5,4 +5,9 @@ package com.kaushik.mvp.ui.base;
  */
 
 public interface MvpView {
+
+    void showLoading();
+
+    void hideLoading();
+
 }

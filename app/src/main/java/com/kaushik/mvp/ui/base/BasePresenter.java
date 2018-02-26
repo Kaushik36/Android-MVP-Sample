@@ -1,5 +1,7 @@
 package com.kaushik.mvp.ui.base;
 
+import android.content.Context;
+
 import com.kaushik.mvp.data.DataManager;
 
 /**
@@ -10,9 +12,15 @@ public class BasePresenter<V extends MvpView > implements MvpPresenter<V>{
 
     DataManager mDataManager;
     private V mMvpView;
+    private Context context;
 
     public BasePresenter(DataManager dataManager) {
         mDataManager = dataManager;
+    }
+
+    public BasePresenter(DataManager dataManager, Context context) {
+        mDataManager = dataManager;
+        this.context = context;
     }
 
     @Override
@@ -24,6 +32,10 @@ public class BasePresenter<V extends MvpView > implements MvpPresenter<V>{
 
     public V getMvpView() {
         return mMvpView;
+    }
+
+    public Context getMvpContext(){
+        return context;
     }
 
     public DataManager getDataManager() {

@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     private void initialization(){
 
         DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
-        loginPresenter = new LoginPresenter(dataManager);
+        loginPresenter = new LoginPresenter(dataManager,LoginActivity.this);
 
         loginPresenter.onAttach(this);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
