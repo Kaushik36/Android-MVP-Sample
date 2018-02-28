@@ -9,4 +9,6 @@ import com.kaushik.mvp.ui.base.MvpPresenter;
 public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<V> {
 
     void onStartLogin(String emailId);
+
+    void onStartNetworkLogin(String emailId, String password);
 }

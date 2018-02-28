@@ -14,18 +14,19 @@ import com.kaushik.mvp.MvpApp;
 import com.kaushik.mvp.R;
 import com.kaushik.mvp.data.DataManager;
 import com.kaushik.mvp.ui.base.BaseActivity;
+import com.kaushik.mvp.ui.login.user_alert.UserAlertDialog;
 import com.kaushik.mvp.ui.main.MainActivity;
 import com.kaushik.mvp.utils.CommonUtils;
 
 import java.io.File;
 
-public class LoginActivity extends BaseActivity implements LoginMvpView {
+public class LoginActivity extends BaseActivity implements LoginMvpView, View.OnClickListener {
 
     private LoginPresenter loginPresenter;
 
     private EditText editTextEmail, editTextPassword;
 
-    private Button button;
+    private Button btn_login, btn_login_network;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +37,24 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         clickEvents();
     }
 
-    private void initialization(){
+    private void initialization() {
 
         DataManager dataManager = ((MvpApp) getApplication()).getDataManager();
-        loginPresenter = new LoginPresenter(dataManager,LoginActivity.this);
+        loginPresenter = new LoginPresenter(dataManager, LoginActivity.this);
 
         loginPresenter.onAttach(this);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
-        button = (Button) findViewById(R.id.button);
+        btn_login = findViewById(R.id.btn_login);
+        btn_login_network = findViewById(R.id.btn_login_network);
 
     }
 
-    private void clickEvents(){
+    private void clickEvents() {
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
+        btn_login.setOnClickListener(this);
+        btn_login_network.setOnClickListener(this);
 
     }
 
@@ -69,7 +67,34 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     }
 
-    private void attemptLogin(){
+    @Override
+    public void showUserAlertDialog(String msg) {
+
+        UserAlertDialog.newInstance().show(getSupportFragmentManager());
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.btn_login:
+                attemptLogin(false);
+                break;
+
+            case R.id.btn_login_network:
+                attemptLogin(true);
+                break;
+
+            default:
+                break;
+
+        }
+
+    }
+
+    private void attemptLogin(boolean isAPICall) {
 
         String emailId = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
@@ -84,7 +109,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             return;
         }
 
-        loginPresenter.onStartLogin(emailId);
+        if (isAPICall){
+            loginPresenter.onStartNetworkLogin(emailId, password);
+        }
+        else {
+            loginPresenter.onStartLogin(emailId);
+
+        }
 
     }
 

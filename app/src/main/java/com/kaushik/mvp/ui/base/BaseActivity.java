@@ -2,12 +2,11 @@ package com.kaushik.mvp.ui.base;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.kaushik.mvp.R;
+import com.kaushik.mvp.utils.AppData;
 import com.kaushik.mvp.utils.CommonUtils;
 
-public class BaseActivity extends AppCompatActivity implements MvpView{
+public abstract class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.Callback{
 
     private ProgressDialog mProgressDialog;
 
@@ -23,5 +22,20 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    public boolean isNetworkConnected() {
+        return AppData.isNetworkConnected(getApplicationContext());
+    }
+
+    @Override
+    public void onFragmentAttached() {
+
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+
     }
 }

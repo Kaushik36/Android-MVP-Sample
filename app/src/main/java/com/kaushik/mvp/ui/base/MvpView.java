@@ -10,4 +10,6 @@ public interface MvpView {
 
     void hideLoading();
 
+    boolean isNetworkConnected();
+
 }

@@ -21,7 +21,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/btn_login"
         android:text="login"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_login_network"
+        android:text="Network Login"/>
 
 </LinearLayout>
